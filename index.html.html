@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เว็บไซต์แนะนำชมรมและกิจกรรมภายในวิทยาลัยเทคนิคเพชรบูรณ์</title>
+    <!-- Google Font: Prompt -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Prompt', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 50%, #eff6ff 100%);
+            background-attachment: fixed;
+            color: #1f2937;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(135deg, #4a148c, #7b1fa2);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 100%;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-brand img {
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .nav-brand span {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 400;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            opacity: 0.8;
+            font-weight: 600;
+            border-bottom: 2px solid white;
+            padding-bottom: 3px;
+        }
+
+        /* Container & Sections */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #ff9800;
+            padding-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+        }
+
+        .section-divider {
+            flex-grow: 1;
+            min-width: 50px;
+            height: 4px;
+            background: repeating-linear-gradient(45deg, #7b1fa2, #7b1fa2 10px, transparent 10px, transparent 20px);
+        }
+
+        /* Grid Layouts ปรับให้ยืดหยุ่นตามหน้าจออัตโนมัติ */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid #eaeaea;
+            flex-wrap: wrap;
+        }
+
+        .card-content {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #4a148c;
+            margin-bottom: 8px;
+        }
+
+        .card-text {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .card-date {
+            font-size: 0.75rem;
+            color: #999;
+            margin-bottom: 12px;
+        }
+
+        .card-img-placeholder {
+            width: 140px;
+            height: 100px;
+            background: #e0e0e0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            border: 2px dashed #ccc;
+            overflow: hidden;
+        }
+
+        .card-img-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: inherit;
+        }
+
+        .btn-more {
+            display: inline-block;
+            background-color: #673ab7;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .btn-more:hover {
+            background-color: #512da8;
+        }
+
+        /* Popular Clubs Specific Card */
+        .club-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #eaeaea;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .club-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .club-icon {
+            width: 40px;
+            height: 40px;
+            background: #f3e5f5;
+            color: #7b1fa2;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .club-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .club-images {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0 0 0;
+            justify-content: center;
+        }
+
+        /* Benefits & Join Section */
+        .benefits-and-join-section {
+            padding: 40px 20px;
+            border-radius: 16px;
+            margin-top: 40px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #6c757d;
+            font-size: 1rem;
+            margin-bottom: 32px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .benefit-cardHighlight {
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 16px;
+            border-top: 4px solid #8b0000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .benefit-cardHighlight:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .benefit-cardHighlight h3 {
+            font-size: 1.1rem;
+            color: #212529;
+            margin-bottom: 8px;
+        }
+
+        .benefit-cardHighlight p {
+            font-size: 0.9rem;
+            color: #495057;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .join-info-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid #e9ecef;
+        }
+
+        .join-header h2 {
+            color: #8b0000;
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+        }
+
+        .join-header p {
+            color: #6c757d;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+
+        .join-details {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            background: #fdf2f2;
+            padding: 16px;
+            border-radius: 12px;
+        }
+
+        .detail-icon {
+            font-size: 24px;
+        }
+
+        .detail-text strong {
+            color: #212529;
+            font-size: 1rem;
+        }
+
+        .detail-text p {
+            margin: 4px 0 0 0;
+            color: #495057;
+            font-size: 0.9rem;
+        }
+
+        .shadow-card {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Announcement Bar */
+        .announcement-bar {
+            background: linear-gradient(90deg, #5b21b6, #6d28d9);
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(109, 40, 217, 0.15);
+        }
+
+        .announcement-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            overflow: hidden;
+        }
+
+        .badge-tag {
+            background-color: #f59e0b;
+            color: #ffffff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .announcement-bar marquee {
+            font-size: 0.9rem;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            max-width: 1200px;
+            width: 100%;
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f3f4f6;
+            margin: 30px auto;
+            box-sizing: border-box;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .stat-card {
+            padding: 12px;
+        }
+
+        .stat-icon {
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #6d28d9;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-top: 4px;
+        }
+
+        /* Custom Container Styles */
+        .custom-container {
+            max-width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .section-header-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #111827;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .section-header-title::after {
+            content: '';
+            flex: 1;
+            min-width: 40px;
+            height: 3px;
+            border-bottom: 3px dashed #6d28d9;
+        }
+
+        .board-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .board-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f3f4f6;
+            transition: transform 0.2s ease;
+        }
+
+        .board-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .board-img-container {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 16px auto;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #f3e8ff;
+            box-shadow: 0 4px 10px rgba(109, 40, 217, 0.15);
+        }
+
+        .board-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .board-card h3 {
+            font-size: 1.1rem;
+            color: #111827;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .board-card .position {
+            font-size: 0.9rem;
+            color: #6d28d9;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .portal-item {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            color: #1f2937;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f3f4f6;
+            transition: all 0.2s ease;
+        }
+
+        .portal-item:hover {
+            border-color: #6d28d9;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(109, 40, 217, 0.12);
+        }
+
+        .portal-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .portal-item h4 {
+            font-size: 1rem;
+            color: #6d28d9;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .portal-item p {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        .quiz-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f3f4f6;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .quiz-btn {
+            background: #f5f3ff;
+            border: 1px solid #6d28d9;
+            color: #6d28d9;
+            padding: 12px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .quiz-btn:hover {
+            background: #6d28d9;
+            color: #ffffff;
+        }
+
+        .quiz-result {
+            margin-top: 16px;
+            padding: 16px;
+            background: #f3e8ff;
+            border-radius: 12px;
+            color: #5b21b6;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .doc-section {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f3f4f6;
+        }
+
+        .doc-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .doc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 18px;
+            background: #f9fafb;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-purple {
+            background-color: #6d28d9;
+            color: #ffffff;
+            padding: 6px 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-purple:hover {
+            background-color: #5b21b6;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #512da8;
+            color: white;
+            width: 100%;
+            padding: 40px 0;
+            margin-top: 60px;
+            box-sizing: border-box;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-info {
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .footer-social a {
+            color: white;
+            background: rgba(255,255,255,0.1);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Responsive Media Queries สำหรับมือถือขนาดเล็ก */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+            .nav-links {
+                justify-content: center;
+            }
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .join-info-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="nav-brand">
+            <img src="logo1.png" alt="Logo">
+            <span>วิทยาลัยเทคนิคเพชรบูรณ์</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html.html" class="active">หน้าแรก</a></li>
+            <li><a href="3.html.html">ข่าวสาร</a></li>
+            <li><a href="2.html.html">ชมรมต่างๆ</a></li>
+            <li><a href="4.html.html">ติดต่อเรา</a></li>
+        </ul>
+    </header>
+
+    <section class="hero-image-container" style="max-width: 1200px; margin: 20px auto; padding: 0 20px;">
+        <img src="img1.png" alt="ศูนย์รวมชมรมและกิจกรรม" style="width: 100%; height: auto; display: block; border-radius: 12px;">
+    </section>
+
+     <!-- Main Content Container -->
+    <div class="container">
+
+        <!-- Announcement Marquee -->
+        <div class="announcement-bar">
+          <div class="announcement-content">
+            <span class="badge-tag">📢 ประกาศด่วน</span>
+            <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+              📢 เปิดรับสมัครนักเรียน นักศึกษารอบโควต้าประจำปี 2570 แล้ววันนี้ สามารถยื่นใบสมัครได้ที่งานทะเบียนอาคาร 1 หรือสมัครออนไลน์ได้แล้ววันนี้  | 📜 นักศึกษาสามารถดาวน์โหลดแบบฟอร์มบันทึกชั่วโมงกิจกรรมได้ที่ศูนย์ดาวน์โหลดเอกสาร
+            </marquee>
+          </div>
+        </div>
+
+        <div class="custom-container">
+
+            <!-- ================= 1. บุคลากรและคณะผู้บริหาร ================= -->
+            <section>
+              <h2 class="section-header-title">คณะผู้บริหารและงานกิจกรรม</h2>
+              
+              <div class="board-grid">
+                <!-- รองผู้อำนวยการฝ่ายพัฒนากิจการนักเรียน นักศึกษา -->
+                <div class="board-card">
+                  <div class="board-img-container">
+                    <img src="pawes.jpg" alt="นายประเวส สีทำมา">
+                  </div>
+                  <h3>นายประเวส สีทำมา</h3>
+                  <div class="position">รองผู้อำนวยการฝ่ายพัฒนากิจการนักเรียน นักศึกษา</div>
+                </div>
+                
+                <!-- ผู้อำนวยการ -->
+                <div class="board-card">
+                  <div class="board-img-container">
+                    <img src="ceo.png" alt="นายทองจันทร์ ประทุมโฉม">
+                  </div>
+                  <h3>นายทองจันทร์ ประทุมโฉม</h3>
+                  <div class="position">ผู้อำนวยการวิทยาลัยเทคนิคเพชรบูรณ์</div>
+                </div>
+
+                <!-- หัวหน้างานกิจกรรมนักเรียน นักศึกษา -->
+                <div class="board-card">
+                  <div class="board-img-container">
+                    <img src="wudti.jpg" alt="นายวุฒิพงษ์ วงษา">
+                  </div>
+                  <h3>นายวุฒิพงษ์ วงษา</h3>
+                  <div class="position">หัวหน้างานกิจกรรมนักเรียน นักศึกษา</div>
+                </div>
+              </div>
+            </section>
+
+            <!-- ================= 2. ระบบบริการออนไลน์ (Quick Links) ================= -->
+            <section>
+              <h2 class="section-header-title">ระบบบริการออนไลน์</h2>
+              <div class="portal-grid">
+                <a href="https://rms.pbntc.ac.th/?p=login" target="_blank" class="portal-item">
+                  <div class="portal-icon">📊</div>
+                  <h4>ระบบ RMS</h4>
+                  <p>บริหารจัดการสถานศึกษา</p>
+                </a>
+                <a href="https://std2018.vec.go.th/web/" target="_blank" class="portal-item">
+                  <div class="portal-icon">📝</div>
+                  <h4>ระบบ ศธ.02</h4>
+                  <p>ตรวจสอบผลการเรียน/กิจกรรม</p>
+                </a>
+                <a href="https://rms.pbntc.ac.th/stdac/?p=authen/login/form/regular" target="_blank" class="portal-item">
+                  <div class="portal-icon">📜</div>
+                  <h4>ระบบกิจกรรมออนไลน์</h4>
+                  <p>ตรวจสอบการเข้ากิจกรรมต่างๆ</p>
+                </a>
+                <a href="https://www.pbntc.ac.th/guide_book.html" target="_blank" class="portal-item">
+                  <div class="portal-icon">🏛️</div>
+                  <h4>คู่มือนักเรียน นักศึกษา</h4>
+                  <p>คู่มือและระเบียบปฏิบัติ</p>
+                </a>
+              </div>
+            </section>
+
+            <!-- ================= 3. ค้นหาชมรมที่ใช่ใน 1 คลิก ================= -->
+            <section class="quiz-card">
+              <h2 class="section-header-title">ค้นหาชมรมที่เหมาะกับคุณ</h2>
+              <p style="font-size: 0.9rem; color: #6b7280; margin-top: -10px;">เลือกกลุ่มงานที่สนใจเพื่อแนะนำชมรมที่ตรงกับความชอบของคุณ</p>
+
+              <div class="quiz-options">
+                <button class="quiz-btn" onclick="showClubResult('สายช่างอุตสาหกรรม และนวัตกรรม', 'ชมรมวิชาชีพช่างยนต์ / ชมรมวิชาชีพช่างไฟฟ้ากำลัง / ชมรมวิชาชีพก่อสร้าง-โยธา')">⚙️ สายช่างอุตสาหกรรม</button>
+                <button class="quiz-btn" onclick="showClubResult('สายบริหารธุรกิจ และการบริการ', 'ชมรมวิชาชีพการบัญชี / ชมรมวิชาชีพเทคโนโลยีธุรกิจดิจิทัล / ชมรมวิชาชีพช่างเทคนิคคอมพิวเตอร์ / ชมรมวิชาชีพการตลาด')">💼 สายไอที/พาณิชยการ</button>
+                <button class="quiz-btn" onclick="showClubResult('สายกิจกรรมบำเพ็ญประโยชน์ และจิตอาสา', 'ชมรมลูกเสือ เนตรนารีวิสามัญ / ชมรมทหาร')">🤝 สายจิตอาสา/บำเพ็ญประโยชน์</button>
+                <button class="quiz-btn" onclick="showClubResult('สายกิจกรรมบำเพ็ญประโยชน์ และจิตอาสา', 'ชมรม TO BE NUMBER ONE / ชมรมดนตรีและนาฏศิลป์')">🤝 สายบันเทิง/นันทนาการ</button>
+              </div>
+              <div id="quizResult" class="quiz-result"></div>
+            </section>
+
+            <!-- ================= 4. ศูนย์ดาวน์โหลดเอกสาร ================= -->
+            <section class="doc-section">
+              <h2 class="section-header-title">ศูนย์ดาวน์โหลดเอกสาร</h2>
+              <ul class="doc-list">
+                <li class="doc-item">
+                  <span>📄 แบบฟอร์มใบสมัครเข้าเป็นสมาชิกชมรมประจำปีการศึกษา (PDF)</span>
+                  <a href="dow/12..pdf" class="btn-purple">ดาวน์โหลด</a>
+                </li>
+                <li class="doc-item">
+                  <span>📄 แบบฟอร์มใบประกาศการรับสมัครเลือกตั้งประธานชมรมวิชาชีพ (PDF)</span>
+                  <a href="dow/14..pdf" class="btn-purple">ดาวน์โหลด</a>
+                </li>
+                <li class="doc-item">
+                  <span>📄 แบบฟอร์มใบรับสมัครเลือกตั้งประธานชมรมวิชาชีพ (PDF)</span>
+                  <a href="dow/15..pdf" class="btn-purple">ดาวน์โหลด</a>
+                </li>
+                <li class="doc-item">
+                  <span>📄 แบบฟอร์มใบรายงานผลการเลือกตั้งคณะกรรมการดำเนินงานชมรมวิชาชีพ (PDF)</span>
+                  <a href="dow/17..pdf" class="btn-purple">ดาวน์โหลด</a>
+                </li>
+                <li class="doc-item">
+                  <span>📄 แบบฟอร์มใบแต่งตั้งคณะกรรมการดำเนินงานชมรมวิชาชีพ (PDF)</span>
+                  <a href="dow/18..pdf" class="btn-purple">ดาวน์โหลด</a>
+                </li>
+                <li class="doc-item">
+                  <span>📄 แบบฟอร์มใบสมัครสมาชิกองค์การนักวิชาชีพในอนาคตแห่งประเทศไทย (PDF)</span>
+                  <a href="dow/19..pdf" class="btn-purple">ดาวน์โหลด</a>
+                </li>
+              </ul>
+            </section>
+
+        </div>
+
+        <script>
+            function showClubResult(style, clubName) {
+              const resultBox = document.getElementById("quizResult");
+              resultBox.style.display = "block";
+              resultBox.innerHTML = `📌 กลุ่มความสนใจ: <strong>${style}</strong><br>👉 ชมรมแนะนำ: <strong>${clubName}</strong>`;
+            }
+        </script>
+
+        <!-- Quick Stats Bar -->
+        <section class="stats-section" style="margin: 30px 0;">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">🏛️</div>
+              <div class="stat-number">21</div>
+              <div class="stat-label">ชมรมกิจกรรมนักเรียน นักศึกษา</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">👥</div>
+              <div class="stat-number">3,500+</div>
+              <div class="stat-label">นักเรียน นักศึกษาเข้าร่วมกิจกรรม</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">🏆</div>
+              <div class="stat-number">30+</div>
+              <div class="stat-label">รางวัลความสำเร็จประจำปี</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">📜</div>
+              <div class="stat-number">100%</div>
+              <div class="stat-label">ได้รับเกียรติบัตรสะสมผลงาน</div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- News & Activities Section -->
+        <div class="section-header">
+            <h2 class="section-title">ข่าวสารและกิจกรรม 2569</h2>
+            <div class="section-divider"></div>
+        </div>
+
+        <div class="grid-2">
+            <!-- News Card 1 -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-text">นางรุ่งระวี มีทองคำ นายกเหล่ากาชาดจังหวัดเพชรบูรณ์ เข้าเยี่ยมชมแผนกวิชาแฟชั่นและสิ่งทอ วิทยาลัยเทคนิคเพชรบูรณ์ เพื่อเยี่ยมชม ผลงานการออกแบบสิ่งทอ และงานแฟชั่นสร้างสรรค์ของนักศึ...</div>
+                    <div class="card-date">เมื่อวันที่ 4 พฤศจิกายน 2569</div>
+                    <a href="https://www.facebook.com/122099879289371269/posts/122125538247371269" target="_blank" class="btn-more">ดูเพิ่มเติม</a>
+                </div>
+                <div class="card-img-placeholder">
+                    <img src="news/n/c5.jpg" alt="ข่าว">
+                </div>           
+            </div>
+
+            <!-- News Card 2 -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-text">นายทองจันทร์ ประทุมโฉม ผู้อำนวยการวิทยาลัยเทคนิคเพชรบูรณ์ มอบหมายให้ นางจินตนา อุททัง รองผู้อำนวยการฝ่ายบริหารทรัพยากร เป็นตัวแทนในการมอบเกียรติบัตร แก่นักเรียน นักศึกษาที่ชนะกา...</div>
+                    <div class="card-date">เมื่อวันที่ 4 พฤศจิกายน 2569</div>
+                    <a href="https://www.facebook.com/122099879289371269/posts/122125514589371269" target="_blank" class="btn-more">ดูเพิ่มเติม</a>
+                </div>
+                <div class="card-img-placeholder">
+                    <img src="news/n/c4.jpg" alt="ข่าว">
+                </div>
+            </div>
+
+            <!-- News Card 3 -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="card-text">นายทองจันทร์ ประทุมโฉม ผู้อำนวยการวิทยาลัยเทคนิคเพชรบูรณ์ ตรวจเยี่ยมการจัดการเรียนการสอนตามแผนกวิชาต่างๆ ภายในวิทยาลัยเทคนิคเพชรบูรณ์ เพื่อติดตามความพร้อมและดูแลบรรยากาศการเรียน...</div>
+                    <div class="card-date">เมื่อวันที่ 3 พฤศจิกายน 2569</div>
+                    <a href="https://www.facebook.com/122099879289371269/posts/122125378737371269" target="_blank" class="btn-more">ดูเพิ่มเติม</a>
+                </div>
+                <div class="card-img-placeholder">
+                    <img src="news/n/b1.jpg" alt="ข่าว">
+                </div>         
+            </div>
+        </div>
+
+        <!-- Popular Clubs Section -->
+        <div class="section-header" style="margin-top: 50px;">
+            <h2 class="section-title">ชมรมยอดนิยม</h2>
+            <div class="section-divider"></div>
+        </div>
+
+        <div class="grid-3">
+            <!-- Popular Club 1 -->
+            <div class="club-card">
+                <div>
+                    <div class="club-card-header">
+                        <div class="club-icon"><img src="logo/gen z.png" alt="Logo"></div>
+                        <div class="card-title" style="margin:0;">ชมรมดนตรีและนาฏศิลป์</div>
+                    </div>
+                    <div class="card-text">พื้นที่แสดงออกทางดนตรี การขับร้อง การเต้น และงานศิลปะสร้างสรรค์สำหรับคนรักเสียงเพลง</div>
+                </div>
+                <div class="club-images">
+                    <div class="card-img-placeholder"><img src="club/p1.jfif" alt="ชมรม"></div>                  
+                    <div class="card-img-placeholder"><img src="club/p2.jfif" alt="ชมรม"></div>            
+                </div>
+            </div>
+
+            <!-- Popular Club 2 -->
+            <div class="club-card">
+                <div>
+                    <div class="club-card-header">
+                        <div class="club-icon"><img src="logo/TO_BE_NUMBER_ONE_Logo.svg" alt="Logo"></div>
+                        <div class="card-title" style="margin:0;">ชมรม TO BE NUMBER ONE</div>
+                    </div>
+                    <div class="card-text">รณรงค์ป้องกันและแก้ไขปัญหายาเสพติด มุ่งหวังให้เยาวชนพึ่งพาตนเองได้ และ "เป็นหนึ่งโดยไม่พึ่งยาเสพติด"</div>
+                </div>
+                <div class="club-images">
+                    <div class="card-img-placeholder"><img src="club/to1.jpg" alt="ชมรม"></div>                  
+                    <div class="card-img-placeholder"><img src="club/to2.jfif" alt="ชมรม"></div>            
+                </div>
+            </div>
+
+            <!-- Popular Club 3 -->
+            <div class="club-card">
+                <div>
+                    <div class="club-card-header">
+                        <div class="club-icon"><img src="logo/gen z.png" alt="Logo"></div>
+                        <div class="card-title" style="margin:0;">ชมรม GEN Z</div>
+                    </div>
+                    <div class="card-text">กิจกรรมรณรงค์ ป้องกัน และสร้างเครือข่ายเยาวชนรุ่นใหม่ให้รู้เท่าทันพิษภัยของบุหรี่ไฟฟ้าและสิ่งเสพติด</div>
+                </div>
+                <div class="club-images">
+                    <div class="card-img-placeholder"><img src="club/z1.jpg" alt="ชมรม"></div>                  
+                    <div class="card-img-placeholder"><img src="club/z2.jpg" alt="ชมรม"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Benefits & Join Section -->
+        <section class="benefits-and-join-section">
+            <h2 class="section-title" style="text-align: center; margin-bottom: 10px;">สิ่งที่จะได้รับเมื่อเข้าร่วมชมรม</h2>
+            <p class="section-subtitle">ไม่ใช่แค่ชั่วโมงกิจกรรม แต่คือประสบการณ์และสังคมที่ดีกว่า</p>
+
+            <div class="benefits-grid">
+                <div class="benefit-cardHighlight shadow-card">
+                    <div class="card-icon">⚡</div>
+                    <h3>ใช้เวลาว่างให้เกิดประโยชน์</h3>
+                    <p>เปลี่ยนเวลาว่างหลังเลิกเรียนมาเป็นทักษะใหม่ๆ สนุกกับกิจกรรมที่ชอบ และพัฒนาตัวเองอยู่เสมอ</p>
+                </div>
+                <div class="benefit-cardHighlight shadow-card">
+                    <div class="card-icon">🛡️</div>
+                    <h3>สร้างภูมิคุ้มกัน ห่างไกลยาเสพติด</h3>
+                    <p>อยู่ในสังคมและสภาพแวดล้อมเชิงบวก มีกลุ่มเพื่อนคอยซัพพอร์ต ร่วมสร้างสรรค์สิ่งดีๆ ไปด้วยกัน</p>
+                </div>
+                <div class="benefit-cardHighlight shadow-card">
+                    <div class="card-icon">🤝</div>
+                    <h3>มิตรภาพและเครือข่ายรุ่นพี่รุ่นน้อง</h3>
+                    <p>ได้รู้จักเพื่อนต่างสาขา ได้คอนเนกชันที่แน่นแฟ้น พร้อมคำแนะนำด้านการเรียนและการปรับตัวในวิทยาลัย</p>
+                </div>
+                <div class="benefit-cardHighlight shadow-card">
+                    <div class="card-icon">📜</div>
+                    <h3>สะสมแฟ้มสะสมผลงาน (Portfolio)</h3>
+                    <p>รับเกียรติบัตรการเข้าร่วมกิจกรรม ใช้ต่อยอดในการสมัครงาน โควตาฝึกงาน หรือการศึกษาต่อ</p>
+                </div>
+            </div>
+
+            <div class="join-info-card shadow-card">
+                <div class="join-header">
+                    <h2>📍 สนใจสมัครชมรม หรือสอบถามเพิ่มเติม</h2>
+                    <p>เข้ามาพูดคุย แลกเปลี่ยน หรือสมัครได้ด้วยตัวเองที่ศูนย์รวมกิจกรรมนักเรียน นักศึกษา</p>
+                </div>
+
+                <div class="join-details">
+                    <div class="detail-item">
+                        <div class="detail-icon">🏢</div>
+                        <div class="detail-text">
+                            <strong>สถานที่รับสมัคร / ติดต่อ:</strong>
+                            <p>ห้องงานกิจกรรมนักเรียน นักศึกษา (ชั้นล่าง อาคารเรียนเฉลิมพระเกียรติ 60 พรรษา / ตึก 60 ปี)</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">⏰</div>
+                        <div class="detail-text">
+                            <strong>เวลาทำการ:</strong>
+                            <p>วันจันทร์ - วันศุกร์ เวลา 08:30 - 16:30 น. (พักเที่ยง 12:00 - 13:00 น.)</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon">📝</div>
+                        <div class="detail-text">
+                            <strong>สิ่งที่ต้องเตรียมมา:</strong>
+                            <p>บัตรนักศึกษา หรือ รหัสนักศึกษา (ไม่มีค่าใช้จ่ายในการสมัคร)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                สถาบันการอาชีวศึกษาภาคเหนือ 3<br>
+                วิทยาลัยเทคนิคเพชรบูรณ์<br>
+                โทร : 056-713455<br>
+                อีเมล : pbtv212@pbtvc.ac.th
+            </div>
+            <div class="footer-social">
+                <a href="https://www.facebook.com/pbntc212" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/pbntc_phatchabun" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@technical.story" target="_blank"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.youtube.com/@TECHNICA_STORY" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

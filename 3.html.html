@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ข่าวสารและกิจกรรมชมรม - วิทยาลัยเทคนิคเพชรบูรณ์</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary: #a81c1c;
+      --primary-dark: #821212;
+      --accent: #f59e0b;
+      --text-dark: #1f2937;
+      --text-muted: #6b7280;
+      --bg-light: #f8fafc;
+    }
+
+    * { 
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box; 
+        font-family: 'Prompt', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    .navbar {
+        background: linear-gradient(135deg, #4a148c, #7b1fa2);
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 5%;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .nav-brand img {
+        width: 45px;
+        height: 45px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .nav-brand span {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 20px;
+        list-style: none;
+        flex-wrap: wrap;
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 400;
+        transition: opacity 0.3s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+        opacity: 0.8;
+        font-weight: 600;
+        border-bottom: 2px solid white;
+        padding-bottom: 3px;
+    }
+
+    .news-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    /* 1. แถบประกาศด่วน (Announcement Banner) */
+    .urgent-banner {
+      background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 0.75rem 1.25rem;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 12px rgba(168, 28, 28, 0.2);
+    }
+
+    .urgent-badge {
+      background: var(--accent);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .urgent-text {
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Header Section */
+    .section-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .section-header h2 {
+      color: #4a148c;
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    /* 2. Controls Bar (Categories) */
+    .controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      background: white;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .category-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      width: 100%;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      border: none;
+      background: #f3f4f6;
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: #7b1fa2;
+      color: white;
+    }
+
+    /* 3. News Grid layout (ปรับให้เป็น 2 คอลัมน์บนจอแท็บเล็ต/มือถือ และ 3 บนจอใหญ่) */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .news-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      border: 1px solid #eaeaea;
+    }
+
+    .news-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 20px -4px rgba(0,0,0,0.1);
+    }
+
+    /* Hero Card (ข่าวเด่นอันแรก ให้แสดงผลปกติเหมือนการ์ดอื่นเพื่อความสมดุลบนมือถือ) */
+    .news-card.hero-card {
+      grid-column: span 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .news-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: white;
+      z-index: 2;
+    }
+
+    .badge-act { background: #2563eb; }
+    .badge-award { background: #d97706; }
+    .badge-vol { background: #059669; }
+
+    .news-image {
+      height: 200px;
+      overflow: hidden;
+      background: #e0e0e0;
+    }
+
+    .news-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .news-card:hover .news-image img {
+      transform: scale(1.05);
+    }
+
+    .news-content {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+    }
+
+    .news-date {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .news-excerpt {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .news-link {
+      color: #7b1fa2;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .news-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Footer */
+    footer {
+        background-color: #512da8;
+        color: white;
+        width: 100%;
+        padding: 40px 0;
+        margin-top: 60px;
+        box-sizing: border-box;
+    }
+
+    .footer-container {
+        max-width: 1200px;
+        width: 90%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .footer-info {
+        font-size: 0.85rem;
+        line-height: 1.6;
+    }
+
+    .footer-social {
+        display: flex;
+        gap: 15px;
+    }
+
+    .footer-social a {
+        color: white;
+        background: rgba(255,255,255,0.1);
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: background 0.3s;
+    }
+
+    .footer-social a:hover {
+        background: rgba(255,255,255,0.3);
+    }
+
+    /* Responsive Media Queries */
+    @media (max-width: 768px) {
+      .navbar {
+          flex-direction: column;
+          text-align: center;
+      }
+      .nav-links {
+          justify-content: center;
+      }
+      .footer-container {
+          flex-direction: column;
+          text-align: center;
+      }
+      .urgent-banner {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
+      }
+      .urgent-text {
+          white-space: normal;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header / Navbar -->
+  <header class="navbar">
+      <div class="nav-brand">
+          <img src="logo1.png" alt="Logo">
+          <span>วิทยาลัยเทคนิคเพชรบูรณ์</span>
+      </div>
+      <ul class="nav-links">
+         <li><a href="index.html.html">หน้าแรก</a></li>
+          <li><a href="3.html.html" class="active">ข่าวสาร</a></li>
+          <li><a href="2.html.html">ชมรมต่างๆ</a></li>
+          <li><a href="4.html.html">ติดต่อเรา</a></li>
+      </ul>
+  </header>
+
+  <div class="news-section">
+
+    <!-- 1. แถบประกาศด่วน -->
+    <div class="urgent-banner">
+      <span class="urgent-badge">ประกาศด่วน</span>
+      <p class="urgent-text">📢 เปิดรับสมัครนักเรียน นักศึกษารอบโควต้าประจำปี 2570 แล้ววันนี้ สามารถยื่นใบสมัครได้ที่งานทะเบียนอาคาร 1 หรือสมัครออนไลน์ได้แล้ววันนี้ </p>
+    </div>
+
+    <!-- ส่วนหัว -->
+    <div class="section-header">
+      <h2>ข่าวสาร & กิจกรรมชมรมในช่วงนี้</h2>
+      <p>ติดตามความเคลื่อนไหว ผลงาน และกิจกรรมจากชมรมในวิทยาลัยเทคนิคเพชรบูรณ์</p>
+    </div>
+
+    <!-- 2. แถบควบคุม (หมวดหมู่) -->
+    <div class="controls-bar">
+      <div class="category-tabs">
+        <button class="tab-btn active" onclick="filterNews('all', event)">ทั้งหมด</button>
+        <button class="tab-btn" onclick="filterNews('activity', event)">กิจกรรมวิทยาลัย</button>
+        <button class="tab-btn" onclick="filterNews('award', event)">ผลงาน/รางวัล</button>
+        <button class="tab-btn" onclick="filterNews('volunteer', event)">รับสมัครงาน</button>
+      </div>
+    </div>
+
+    <!-- รายการข่าวสาร -->
+    <div class="news-grid" id="newsGrid">
+
+      <!-- ข่าวเด่น 1 -->
+      <article class="news-card hero-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/c5.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 4 พฤศจิกายน 2569</div>
+            <p class="news-excerpt">นางรุ่งระวี มีทองคำ นายกเหล่ากาชาดจังหวัดเพชรบูรณ์ เข้าเยี่ยมชมแผนกวิชาแฟชั่นและสิ่งทอ วิทยาลัยเทคนิคเพชรบูรณ์ เพื่อเยี่ยมชม ผลงานการออกแบบสิ่งทอ และงานแฟชั่นสร้างสรรค์ของนักศึ...</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122125538247371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+       <!-- ข่าวปกติ -->
+      <article class="news-card" data-category="award">
+        <span class="news-badge badge-award">ผลงาน/รางวัล</span>
+        <div class="news-image">
+          <img src="news/n/c4.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 4 พฤศจิกายน 2569</div>
+            <p class="news-excerpt">นายทองจันทร์ ประทุมโฉม ผู้อำนวยการวิทยาลัยเทคนิคเพชรบูรณ์ มอบหมายให้ นางจินตนา อุททัง รองผู้อำนวยการฝ่ายบริหารทรัพยากร เป็นตัวแทนในการมอบเกียรติบัตร แก่นักเรียน นักศึกษาที่ชนะกา...</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122125514589371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/b1.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 3 พฤศจิกายน 2569</div>
+            <p class="news-excerpt">นายทองจันทร์ ประทุมโฉม ผู้อำนวยการวิทยาลัยเทคนิคเพชรบูรณ์ ตรวจเยี่ยมการจัดการเรียนการสอนตามแผนกวิชาต่างๆ ภายในวิทยาลัยเทคนิคเพชรบูรณ์ เพื่อติดตามความพร้อมและดูแลบรรยากาศการเรียน...</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122125378737371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/a.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 29 ตุลาคม 2569</div>
+            <p class="news-excerpt">นายทองจันทร์ ประทุมโฉม ผู้อำนวยการวิทยาลัยเทคนิคเพชรบูรณ์ เป็นประธานในการประชุม คณะกรรมการตรวจรับ,กรรมการพิจารณาผล,กรรมการกำหนดคุณลักษณะเฉพาะครุภัณฑ์ ณ หอประชุมร่มโพธิ์</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122124758775371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/a1.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 29 ตุลาคม 2569</div>
+            <p class="news-excerpt">นายทองจันทร์ ประทุมโฉม ผู้อำนวยการวิทยาลัยเทคนิคเพชรบูรณ์ เป็นประธานในพิธีเปิดโครงการอบรม "วัคซีนไซเบอร์" (Vaccine Cyber) สร้างภูมิคุ้มกันภัยออนไลน์ โดยความร่วมมือระหว่าง...</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122124732567371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/a3.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 28 ตุลาคม 2569</div>
+            <p class="news-excerpt">นายทองจันทร์ ประทุมโฉม ผู้อำนวยการวิทยาลัยเทคนิคเพชรบูรณ์ เป็นประธานในพิธีเปิดงานประชุมวิชาการองค์การนักวิชาชีพในอนาคตแห่งประเทศไทย (อวท.) การแข่งขันทักษะวิชาชีพ และการ...</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122124636603371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/a4.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 27 ตุลาคม 2569</div>
+            <p class="news-excerpt">นายทองจันทร์ ประทุมโฉม ผู้อำนวยการวิทยาลัยเทคนิคเพชรบูรณ์ พร้อมด้วยคณะผู้บริหาร ร่วมกิจกรรมเสมาสภากาแฟ “จิบกาแฟ แลมิตรภาพ ร่วมสร้างจังหวัดแห่งการเรียนรู้” ณ หอประชุมอาคาร 60...</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122124489141371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/a5.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 27 ตุลาคม 2569</div>
+            <p class="news-excerpt">นายทองจันทร์ ประทุมโฉม เป็นประธานในพิธีเปิดการประกวดชมรมดีเด่น และสมาชิกดีเด่นภายใต้การนิเทศประจำปีการศึกษา 2569 ณ หอประชุมร่มโพธิ์ เพื่อส่งเสริมทักษะวิชาชีพและการทำงานร่วมกัน...</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122124484647371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/a6.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 23 ตุลาคม 2569</div>
+            <p class="news-excerpt">คณะผู้บริหาร ครู วิทยาลัยเทคนิคเพชรบูรณ์ เข้าร่วมพิธีวางพวงมาลาถวายราชสักการะ พระบรมราชานุสาวรีย์ พระบาทสมเด็จพระจุลจอมเกล้าเจ้าอยู่หัว เนื่องในวันปิยมหาราช ณ ศูนย์ราชการจังหวัดเพชรบูรณ์</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122123908635371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="volunteer">
+        <span class="news-badge badge-vol">รับสมัครงาน</span>
+        <div class="news-image">
+          <img src="news/s/s1.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 22 ตุลาคม 2569</div>
+            <p class="news-excerpt">📣📣ประกาศวิทยาลัยเทคนิคเพชรบูรณ์✨✨ เรื่อง บัญชีรายชื่อผู้ผ่านการสอบคัดเลือกเพื่อเป็นลูกจ้างชั่วคราวรายเดือน ตำแหน่งครูอัตราจ้าง แผนกวิชาช่างกลโรงงาน</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122120580507371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/s1.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 21 ตุลาคม 2569</div>
+            <p class="news-excerpt">นายทองจันทร์ ประทุมโฉม ผู้อำนวยการวิทยาลัยเทคนิคเพชรบูรณ์ ปฏิบัติหน้าที่ ผู้อำนวยการสำนักงานอาชีวศึกษาจังหวัดเพชรบูรณ์ การประกวดสิ่งประดิษฐ์...</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122123677065371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/s2.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 21 ตุลาคม 2569</div>
+            <p class="news-excerpt">นายทองจันทร์ ประทุมโฉม ผู้อำนวยการวิทยาลัยเทคนิคเพชรบูรณ์ เป็นประธานในพิธีเปิดโครงการตลาดนัดชาวเทคนิค สร้างรายได้สู่ผู้เรียน ประจำปีการศึกษา 2569</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122123660337371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="volunteer">
+        <span class="news-badge badge-vol">รับสมัครงาน</span>
+        <div class="news-image">
+          <img src="news/s/s2.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 20 ตุลาคม 2569</div>
+            <p class="news-excerpt">ประกาศวิทยาลัยเทคนิคเพชรบูรณ์ 🔔🔔 📌เรื่องรายชื่อผู้มีสิทธิสอบ กำหนดวัน เวลา สถานที่ในการสอบ✨✨ ลููกจ้างชั่วคราว ตำแหน่งครูอัตราจ้าง แผนกวิชาช่างกลโรงงาน จำนวน 2 อัตรา</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122123535981371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/b2.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 20 ตุลาคม 2569</div>
+            <p class="news-excerpt">นายทองจันทร์ ประทุมโฉม ผู้อำนวยการวิทยาลัยเทคนิคเพชรบูรณ์ ปฏิบัติหน้าที่ ผู้อำนวยการสำนักงานอาชีวศึกษาจังหวัดเพชรบูรณ์ ✨ เป็นประธานในการประชุมเตรียมควา...</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122123519793371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="volunteer">
+        <span class="news-badge badge-vol">รับสมัครงาน</span>
+        <div class="news-image">
+          <img src="news/s/s3.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 20 ตุลาคม 2569</div>
+            <p class="news-excerpt">ประกาศวิทยาลัยเทคนิคเพชรบูรณ์ 🔔🔔 📌เรื่อง รับสมัครบุคคลเพื่อเลือกสรรและจัดจ้างเป็นพนักงานราชการทั่วไป(ครู)✨✨ รายละเอียดดังเอกสารแนบ</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122123516085371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/b3.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 16 ตุลาคม 2569</div>
+            <p class="news-excerpt">นายทองจันทร์ ประทุมโฉม ผู้อำนวยการวิทยาลัยเทคนิคเพชรบูรณ์ พร้อมคณะผู้บริหาร และหัวหน้าแผนกวิชา ร่วมปฐมนิเทศนักศึกษาฝึกประสบการณ์วิชาชีพ เพื่อเข้ารับการฝึกประสบการณ์วิชาชีพครู ณ ห้องประชุมสำ...</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122122955517371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/b4.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 16 ตุลาคม 2569</div>
+            <p class="news-excerpt">โครงการธรรมะพัฒนาจิต และคุณธรรม จริยธรรมอันดีงาม ภาคเรียนที่ 2 / 2569 ณ หอประชุมร่มโพธิ์</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122122952661371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="award">
+        <span class="news-badge badge-award">ผลงาน/รางวัล</span>
+        <div class="news-image">
+          <img src="news/g/g1.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 16 ตุลาคม 2569</div>
+            <p class="news-excerpt">วิทยาลัยเทคนิคเพชรบูรณ์ รับมอบโล่เชิดชูเกียรติ ผู้สนับสนุนขบวนแห่พระพุทธมหาธรรมราชารอบเมือง ประจำปี 2569</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122122951065371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+      
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/b5.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 14 ตุลาคม 2569</div>
+            <p class="news-excerpt">การประชุมหัวหน้าแผนกและหัวหน้างาน เพื่อวางแผนงานและเตรียมความพร้อมในการเปิดภาคเรียนปีการศึกษา 2570 และรับสมัครนักเรียน นักศึกษา (รอบโควตา) และ (รอบทั่วไป) ประจำปีการศึกษา 2570 ณ ห้องโสตทัศนศึกษา</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122122705365371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+      
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/b6.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 14 ตุลาคม 2569</div>
+            <p class="news-excerpt">การประชุมครูปกครองกลาง และครูปกครองประจำแผนกวิชา ภาคเรียนที่ 2/2569 เพื่อวางแนวทางในการดูแลกำกับและป้องกัน แก้ไขความประพฤติระเบียบวินัยของนักเรียน นักศึกษา ให้นักเรียน นักศึกษา อยู่ในกฎระเบียบวินัย</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122122703181371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/b7.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 13 ตุลาคม 2569</div>
+            <p class="news-excerpt">การอบรมเชิงปฏิบัติการ โครงการอบรมครูที่ปรึกษาพัฒนาทักษะ และเทคนิคการดูแลผู้เรียน ประจำปีการศึกษา 2569 (งบประมาณ 2570) วันที่ 13 ตุลาคม 2569 ณ หอประชุม 60 ปี กรมอาชีวศึกษา วิทยาลัยเทคนิคเพชรบูรณ์</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122122576941371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/b8.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 13 ตุลาคม 2569</div>
+            <p class="news-excerpt">นายทองจันทร์ ประทุมโฉม ผู้อำนวยการวิทยาลัยเทคนิคเพชรบูรณ์ มอบหมายให้ นางจินตนา อุททัง รองผู้อำนวยการ นำคณะครู บุคลากรทางการศึกษา วิทยาลัยเทคนิคเพชรบูรณ์ เข้าร่วมพิธีทำบุญ...</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122122528095371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/c1.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 7 ตุลาคม 2569</div>
+            <p class="news-excerpt">กิจกรรมหน้าเสาธง วันพุธ ที่ 7 ตุลาคม 2569</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122121570351371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/1.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 5 ตุลาคม 2569</div>
+            <p class="news-excerpt">การประชุมเพื่อเตรียมความพร้อมในการจัดขบวนแห่หัวโตกลองยาว งานประเพณีอุ้มพระดำน้ำ จังหวัดเพชรบูรณ์ ณ ห้องประชุมร่มโพธิ์ วิทยาลัยเทคนิคเพชรบูรณ์</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122121299307371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/c2.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 5 ตุลาคม 2569</div>
+            <p class="news-excerpt">กิจกรรมหน้าเสาธง ✨✨ วันเปิดภาคเรียน 2/2569 ณ อาคารโดมอเนกประสงค์</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122121269691371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="volunteer">
+        <span class="news-badge badge-vol">รับสมัครงาน</span>
+        <div class="news-image">
+          <img src="news/s/1.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 1 ตุลาคม 2569</div>
+            <p class="news-excerpt">ประกาศวิทยาลัยเทคนิคเพชรบูรณ์ เรื่อง การรับสมัครบุคคลเพื่อเป็นลูกจ้างชั่วคราวรายเดือน ตำแหน่ง ครูอัตราจ้าง จำนวน 2 อัตรา</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122120580507371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+      <article class="news-card" data-category="activity">
+        <span class="news-badge badge-act">กิจกรรมวิทยาลัย</span>
+        <div class="news-image">
+          <img src="news/n/c3.jpg" alt="ข่าว">
+        </div>
+        <div class="news-content">
+          <div>
+            <div class="news-date">📅 1 ตุลาคม 2569</div>
+            <p class="news-excerpt">นายทองจันทร์ ประทุมโฉม ผู้อำนวยการวิทยาลัยเทคนิคเพชรบูรณ์ มอบหมายให้ นางจินตนา อุททัง รองผู้อำนวยการฝ่ายบริหารทรัพยากร นำคณะบุคลากร ร่วม “พิธีวันที่ระลึก...</p>
+          </div>
+          <a href="https://www.facebook.com/122099879289371269/posts/122120568297371269" target="_blank" rel="noopener noreferrer" class="news-link">อ่านต่อ →</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+      <div class="footer-container">
+          <div class="footer-info">
+              สถาบันการอาชีวศึกษาภาคเหนือ 3<br>
+              วิทยาลัยเทคนิคเพชรบูรณ์<br>
+              โทร : 056-713455<br>
+              อีเมล : pbtv212@pbtvc.ac.th
+          </div>
+          <div class="footer-social">
+              <a href="https://www.facebook.com/pbntc212" target="_blank"><i class="fab fa-facebook-f"></i></a>
+              <a href="https://www.instagram.com/pbntc_phatchabun" target="_blank"><i class="fab fa-instagram"></i></a>
+              <a href="https://www.tiktok.com/@technical.story" target="_blank"><i class="fab fa-tiktok"></i></a>
+              <a href="https://www.youtube.com/@TECHNICA_STORY" target="_blank"><i class="fab fa-youtube"></i></a>
+          </div>
+      </div>
+  </footer>
+
+  <!-- JavaScript สำหรับระบบกรองหมวดหมู่ -->
+  <script>
+    function filterNews(category, event) {
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const cards = document.querySelectorAll('.news-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
