@@ -488,15 +488,16 @@
                 </div>
             </div>
 
-            <!-- คอลัมน์ขวา: ฟอร์มส่งข้อความด่วน (Quick Message) -->
-            <!-- คอลัมน์ขวา: ฟอร์มส่งข้อความด่วน (Quick Message) -->
+           <!-- คอลัมน์ขวา: ฟอร์มส่งข้อความด่วน (Quick Message) -->
 <div class="contact-form-card">
   <h3>✉️ ส่งข้อความถึงเรา (Quick Message)</h3>
   <p>มีข้อสงสัยหรือต้องการสอบถามเพิ่มเติม พิมพ์ข้อความไว้ที่นี่ได้เลยค่ะ</p>
   
-  <form action="https://formsubmit.co" method="POST">
-    <!-- กำหนดหัวข้ออีเมลที่จะได้รับ -->
-    <input type="hidden" name="_subject" value="มีข้อความใหม่จากเว็บไซต์งานกิจกรรม!">
+  <form action="https://api.web3forms.com/submit" method="POST">
+    <!-- รหัส Access Key ของคุณ -->
+    <input type="hidden" name="access_key" value="575a9132-d0da-4040-a0c1-8d4e50e1d9a8">
+    <!-- หัวข้ออีเมลที่จะเด้งเข้า Gmail -->
+    <input type="hidden" name="subject" value="มีข้อความใหม่จากเว็บไซต์งานกิจกรรม!">
 
     <div class="form-group">
       <label>ชื่อ - นามสกุล</label>
@@ -516,6 +517,7 @@
     <button type="submit" class="btn-submit">ส่งข้อความ</button>
   </form>
 </div>
+
 
         <!-- ส่วนล่าง: แผนที่ และ คำถามพบบ่อย (FAQ) -->
         <div class="bottom-grid">
